@@ -13,7 +13,7 @@ public class KeyRepeat {
 			System.out.print("계속 반복할까요?(y/n) ");
 			
 			String key = sc.nextLine();  //String형이므로 쌍따옴표를 사용.
-			
+
 			if(key.equals("y") || key.equals("Y")) {
 				System.out.println("계속 반복");
 			}else if(key.equals("n") || key.equals("N")) {
