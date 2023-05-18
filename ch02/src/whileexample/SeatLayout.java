@@ -1,8 +1,8 @@
-package ifexample;
+package whileexample;
 
 import java.util.Scanner;
 
-public class Seat {
+public class SeatLayout {
 
 	public static void main(String[] args) {
 		// 입장객 수에 따른 열과 줄수 계산하기
@@ -25,11 +25,15 @@ public class Seat {
 //			rowNum = customer / colNum + 1;  //몫 + 1
 		}
 		
-//		System.out.println(rowNum + "개의 줄이 필요합니다.");
-		System.out.printf("%d개의 줄이 필요합니다.\n", rowNum);
-//		System.out.println(customer);
-//		System.out.println(colNum);
-		
-		sc.close();
+		for(int i = 0; i < rowNum; i++) {
+			for(int j = 1; j <= colNum; j++) {
+				int num = colNum*i+j; 
+				if(num > customer) //좌석번호가 고객수보다 클때 빠져 나옴
+					break;
+				System.out.print("좌석" + num + " ");
+			}
+			System.out.println();
+		}
 	}
+
 }
