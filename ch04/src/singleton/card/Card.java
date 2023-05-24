@@ -1,4 +1,4 @@
-package statics;
+package singleton.card;
 
 public class Card {
 	static int serialNum = 100; //기준번호(클래스 변수, 정적변수)
