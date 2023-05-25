@@ -11,6 +11,7 @@ public class Car {
 		this.cc = cc;
 	}
 	
+	//메서드
 	String carInfo() {
 		return "브랜드: " + brand + ", 배기량: " + cc;
 	}
