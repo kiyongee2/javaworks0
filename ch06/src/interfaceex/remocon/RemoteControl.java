@@ -1,7 +1,7 @@
 package interfaceex.remocon;
 
 public interface RemoteControl {
-	//상수
+	//인터페이스 상수
 	public int MAX_VOLUME = 10;  //final이 생략되어 있음
 	public int MIN_VOLUME = 0;   //실행시 컴파일러가 final을 붙여줌
 	
