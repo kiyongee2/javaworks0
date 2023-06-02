@@ -20,7 +20,7 @@ public class AccountDAO {
 	//계좌를 생성하는 함수
 	public void createAccount() {
 		System.out.println("-------------------------------------------");
-		System.out.println("계좌생성");
+		System.out.println("계좌 생성에 필요한 정보를 입력하세요");
 		System.out.println("-------------------------------------------");
 		
 		while(true) {
@@ -59,7 +59,7 @@ public class AccountDAO {
 	//계좌 목록을 출력하는 메서드
 	public void getAccountList() {
 		System.out.println("-------------------------------------------");
-		System.out.println("계좌 목록");
+		System.out.println("계좌 목록입니다.");
 		System.out.println("-------------------------------------------");
 		
 		ArrayList<Account> accountList = new ArrayList<>();	
@@ -94,7 +94,7 @@ public class AccountDAO {
 	//계좌에 입금하는 메서드
 	public void deposit() {
 		System.out.println("-------------------------------------------");
-		System.out.println("예금");
+		System.out.println("입금할 계좌 정보를 입력해주세요");
 		System.out.println("-------------------------------------------");
 		
 		while(true) {
@@ -117,7 +117,7 @@ public class AccountDAO {
 					pstmt.setInt(2, balance);
 					pstmt.setString(3, ano);
 					pstmt.executeUpdate();  //db에 저장
-					System.out.println("결과: 정상 처리 되었습니다.");
+					System.out.printf("%,d원 정상 입금되었습니다.\n", money);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				} finally {
@@ -131,9 +131,9 @@ public class AccountDAO {
 	}
 	
 	//계좌에서 출금하는 메서드
-	/*public void withdraw() {
+	public void withdraw() {
 		System.out.println("-------------------------------------------");
-		System.out.println("출금");
+		System.out.println("출금할 계좌 정보를 입력해주세요");
 		System.out.println("-------------------------------------------");
 		
 		while(true) {
@@ -144,14 +144,27 @@ public class AccountDAO {
 				while(true) {
 					System.out.print("출금액:  ");
 					int money = Integer.parseInt(scanner.nextLine());
+					Account account = findAccount(ano); //입력한 계좌를 가져옴
+					String owner = account.getOwner();
+					int balance = account.getBalance() - money; //예금 = 잔고 - 출금액
 					
-					Account account = findAccount(ano);
 					if(money > account.getBalance()) { //출금액이 잔고를 초과한다면
 						System.out.println("잔액이 부족합니다. 다시 입력해 주세요");
 					}else {
-						//출금 = 잔고 - 예금액
-						account.setBalance(account.getBalance() - money);
-						System.out.println("결과: 정상 처리 되었습니다.");
+						conn = JDBCUtil.getConnection();
+						String sql = "UPDATE account SET owner = ?, balance = ?  WHERE ano = ?";
+						try {
+							pstmt = conn.prepareStatement(sql);
+							pstmt.setString(1, owner);
+							pstmt.setInt(2, balance);
+							pstmt.setString(3, ano);
+							pstmt.executeUpdate();  //db에 저장
+							System.out.printf("%,d원 정상 출금되었습니다.\n", money);
+						} catch (SQLException e) {
+							e.printStackTrace();
+						} finally {
+							JDBCUtil.close(conn, pstmt);
+						}
 						break;  //출금 처리후 빠져나옴
 					}
 				}//내부 while 끝
@@ -160,7 +173,37 @@ public class AccountDAO {
 				System.out.println("결과: 계좌가 없습니다. 다시 입력해 주세요");
 			}
 		}//외부 while 끝
-	}*/
+	}
+	
+	//계좌 삭제
+	public void deleteAccount() {
+		System.out.println("-------------------------------------------");
+		System.out.println("삭제할 계좌를 입력하세요");
+		System.out.println("-------------------------------------------");
+		
+		while(true) {
+			System.out.print("계좌번호:  ");
+			String ano = scanner.nextLine();
+			
+			if(findAccount(ano) != null) { //찾는 계좌가 있다면
+				conn = JDBCUtil.getConnection();
+				String sql = "DELETE FROM account WHERE ano = ?";
+				try {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, ano);
+					pstmt.executeUpdate();  //db에 저장
+					System.out.println("결과: 계좌를 삭제했습니다.");
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					JDBCUtil.close(conn, pstmt);
+				}
+				break; //입금 처리후 빠져나옴
+			}else {
+				System.out.println("결과: 계좌가 없습니다. 다시 입력해 주세요");
+			}
+		}
+	}
 	
 	//계좌를 검색하는 메서드(계좌 1개 가져오기)
 	public Account findAccount(String ano) {
