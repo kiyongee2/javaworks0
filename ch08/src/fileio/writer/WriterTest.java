@@ -8,7 +8,7 @@ public class WriterTest {
 
 	public static void main(String[] args) throws IOException {
 		//부모형으로 객체 생성
-		Writer fw = new FileWriter("data2.txt");
+		Writer fw = new FileWriter("c:/file/newFile2.txt");
 		
 		fw.write("hello~\n");
 		fw.write("안녕\n");
