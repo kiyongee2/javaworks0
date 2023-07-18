@@ -15,6 +15,21 @@ public class MemberHashMapTest {
 		
 		//회원 목록 조회
 		memberMap.showAllMember();
+		System.out.println("==================");
+		
+		//회원 1명 조회
+		memberMap.showOneMember(103);
+		
+		//회원이 없는 경우
+		memberMap.showOneMember(104);
+		
+		//회원 삭제 (102번)
+		memberMap.removeMember(102);
+		System.out.println("================");
+		
+		//전체 조회
+		memberMap.showAllMember();
+
 	}
 
 }

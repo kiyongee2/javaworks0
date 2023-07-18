@@ -21,9 +21,16 @@ public class MemberArrayListTest {
 		memberList.addMember(m4);
 		
 		//System.out.println(m1);
+		//순서상 앞에 있는 102번 삭제
+		memberList.removeMember(102);
 		
 		//회원 목록 조회
-		memberList.showOne(102);
+		memberList.showAllMember();
+		System.out.println("===============");
+		
+		
+		//회원 1명 보기
+		memberList.showOneMember(101);
 
 	}
 

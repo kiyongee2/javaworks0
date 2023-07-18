@@ -29,4 +29,24 @@ public class MemberHashMap {
 			System.out.println(member);
 		}
 	}
+	
+	//회원 1명 보기
+	public void showOneMember(int memberId) {
+		//containsKey(object) : 객체가 포함되어 있는지 여부
+		if(hashMap.containsKey(memberId)) {
+			Member member = hashMap.get(memberId);
+			System.out.println(member);
+			return;
+		}
+		System.out.println(memberId + "가 존재하지 않습니다.");
+	}
+	
+	//회원 삭제
+	public void removeMember(int memberId) {
+		if(hashMap.containsKey(memberId)) {
+			hashMap.remove(memberId);
+			return;
+		}
+		System.out.println(memberId + "가 존재하지 않습니다.");
+	}
 }
